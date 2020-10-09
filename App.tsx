@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { AppLoading } from 'expo';
-import { KeyboardAvoidingView } from 'react-native';
+import { KeyboardAvoidingView,SafeAreaView  } from 'react-native';
 import { MaterialCommunityIcons, } from '@expo/vector-icons';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -69,6 +69,7 @@ const App = () => {
       <NavigationContainer>
         <KeyboardAvoidingView style={{ flex: 1 }} behavior="padding">
           <AppTabsScreen />
+          <SafeAreaView style={{backgroundColor:"#442c2e"}}/>
         </KeyboardAvoidingView>
       </NavigationContainer>
     )

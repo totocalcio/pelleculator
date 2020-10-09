@@ -1,7 +1,7 @@
 import React,{useState,useEffect} from 'react';
 import { AppLoading } from 'expo';
 import { Text, View, StyleSheet, AsyncStorage,ScrollView } from 'react-native';
-import { TextInput } from 'react-native-paper';
+import { TextInput,RadioButton  } from 'react-native-paper';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import { useFonts, MPLUS1p_500Medium } from '@expo-google-fonts/m-plus-1p';
@@ -14,6 +14,7 @@ const ProfileScreen = () => {
   });
 
   const [name,setName] = useState("");
+  const [sex, setSex] = React.useState('male');
   const [weight,setWeight] = useState(null);
   const [birth,setBirth] = useState(new Date().toISOString().split('T')[0]);
   const [welcome,setWelcome] = useState(new Date().toISOString().split('T')[0]);
@@ -47,6 +48,7 @@ const ProfileScreen = () => {
 
   let user = ({
     name,
+    sex,
     weight,
     birth,
     welcome,
@@ -69,6 +71,7 @@ const ProfileScreen = () => {
       alert(err)
     } finally {
       setName("");
+      setSex("男の子");
       setWeight(null);
       setBirth(new Date().toISOString().split('T')[0]);
       setWelcome(new Date().toISOString().split('T')[0]);
@@ -87,6 +90,7 @@ const ProfileScreen = () => {
         const jsonValue = JSON.parse(jsonString);
         user = {...jsonValue};
         setName(user.name);
+        setSex(user.sex);
         setWeight(user.weight);
         setBirth(user.birth);
         setWelcome(user.welcome);
@@ -121,6 +125,47 @@ const ProfileScreen = () => {
             value={name} 
             onChangeText={text => setName(text)}
           />
+          <Text style={styles.title}>性別</Text>
+          <RadioButton.Group
+            onValueChange={value => setSex(value)}
+            value={sex}
+          >
+            <View style={{flexDirection:"row"}}>
+              <View style={styles.sex}>
+                <RadioButton.Item 
+                  color="#d9376e" 
+                  value="male"
+                  status={ sex === 'male' ? 'checked' : 'unchecked' }
+                  onPress={() => setSex('male')}
+                  label=""
+                  style={styles.sexBtn}
+                />
+                <Text style={styles.sexText}>男の子</Text>
+              </View>
+              <View style={styles.sex}>
+                <RadioButton.Item 
+                  color="#d9376e" 
+                  value="female"
+                  status={ sex === 'female' ? 'checked' : 'unchecked' }
+                  onPress={() => setSex('female')}
+                  label=""
+                  style={styles.sexBtn}
+                />
+                <Text style={styles.sexText}>女の子</Text>
+              </View>
+              <View style={styles.sex}>
+                <RadioButton.Item 
+                  color="#d9376e" 
+                  value="unknown"
+                  status={ sex === 'unknown' ? 'checked' : 'unchecked' }
+                  onPress={() => setSex('unknown')}
+                  label=""
+                  style={styles.sexBtn}
+                />
+                <Text style={styles.sexText}>不明</Text>
+              </View>
+            </View>
+          </RadioButton.Group>
           <Text style={styles.title}>体重</Text>
           <View style={styles.weight}>
             <TextInput 
@@ -134,10 +179,11 @@ const ProfileScreen = () => {
           <DateTimePickerModal
             isVisible={isDatePickerVisible}
             mode="date"
-            textColor="#fff"
+            textColor="#fedbd0"
             onConfirm={handleConfirm}
             onCancel={hideDatePicker}
             locale="ja-JP"
+            style={{backgroundColor:"#442c2e"}}
           />
           <Text style={styles.title}>誕生日</Text>
           <View style={styles.date}>
@@ -185,6 +231,22 @@ const styles = StyleSheet.create({
     fontFamily:'MPLUS1p_500Medium',
     fontSize:18,
     fontWeight:"300",
+  },
+  sex: {
+    position:"relative",
+    justifyContent:"center",
+  },
+  sexBtn:{
+    flexDirection:"row-reverse",
+    width:120
+  },
+  sexText: {
+    fontFamily:'MPLUS1p_500Medium',
+    fontSize:18,
+    fontWeight:"300",
+    position:"absolute",
+    paddingLeft:60,
+    zIndex:-1,
   },
   weight: {
     alignSelf:'stretch',

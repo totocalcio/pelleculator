@@ -7,6 +7,7 @@ import Slider from '@react-native-community/slider';
 
 import defaultStyles from '../styles';
 
+
 const HomeScreen = () => {
 
   const ageAry = ['幼年期','成長期','維持期','高齢期'];
@@ -41,15 +42,30 @@ const HomeScreen = () => {
   } else {
     return (
       <View style={ [defaultStyles.container,{position:"relative"}]}>
-        {/* {ageAry.indexOf(age)===1 && (
-          <Text style={styles.popText01}>４ヶ月～６ヶ月は食べ放題(太りすぎ注意)</Text>
+        {/* {
+          (ageAry.indexOf(age)===1) && (
+            <Text style={styles.popText01}>４ヶ月～６ヶ月は食べ放題(太りすぎ注意)</Text>
           )
         } */}
-        {ageAry.indexOf(age)===2 && (
-          <Text style={styles.popText01}>{`(1.5%は${15 * weight}g)`}</Text>
-          )
-        }
-        <Title style={styles.title}>{`ペレット: ${sum} g`}</Title>
+        {/* {
+          !function() {
+            console.log('test2');
+            if (ageAry.indexOf(age)===2) {
+              return(
+                <Text style={styles.popText01}>{`(1.5%は${15 * weight}g)`}</Text>
+              );
+            }
+          }
+        } */}
+        
+        <View style={styles.sum}>
+          {
+            (ageAry.indexOf(age)===2) && (
+              <Text style={styles.popText01}>{`(1.5%は${15 * weight}g)`}</Text>
+            )
+          }
+          <Title style={[styles.title,{textAlign:'center'}]}>{`ペレット: ${sum} g / 1日`}</Title>
+        </View>
         <Headline style={styles.headLine}>{`${age}`}</Headline>
         <View style={styles.inner}>
           <RadioButton.Group
@@ -57,19 +73,19 @@ const HomeScreen = () => {
             value={age}
           >
             <View style={[styles.radio,{marginBottom:5}]}>
-              <RadioButton value={ageAry[0]} color="#d9376e" />
+              <RadioButton.Item style={{flexDirection:"row-reverse"}} value={ageAry[0]} color="#d9376e" label=""/>
               <Text style={styles.radioText}>【幼年期】４ヶ月まで</Text>
             </View>
             <View style={[styles.radio,{marginBottom:5}]}>
-              <RadioButton value={ageAry[1]} color="#d9376e"/>
+              <RadioButton.Item style={{flexDirection:"row-reverse"}} value={ageAry[1]} color="#d9376e" label=""/>
               <Text style={styles.radioText}>【成長期】４ヶ月から１歳</Text>
             </View>
             <View style={[styles.radio,{marginBottom:5}]}>
-              <RadioButton value={ageAry[2]} color="#d9376e"/>
+              <RadioButton.Item style={{flexDirection:"row-reverse"}} value={ageAry[2]} color="#d9376e" label=""/>
               <Text style={styles.radioText}>【維持期】１歳以降</Text>
             </View>
             <View style={styles.radio}>
-              <RadioButton value={ageAry[3]} color="#d9376e"/>
+              <RadioButton.Item style={{flexDirection:"row-reverse"}} value={ageAry[3]} color="#d9376e" label=""/>
               <Text style={styles.radioText}>【高齢期】６歳以降</Text>
             </View>
           </RadioButton.Group>
@@ -99,23 +115,28 @@ const styles = StyleSheet.create({
     width:"100%"
   },
   radio: {
-    flexDirection:"row",
-    alignItems:"center",
-    alignSelf:"flex-start",
+    position:"relative",
+    justifyContent:"center",
     backgroundColor:"#ffffff",
     width:"100%",
     height:50,
   },
   radioText: {
-    paddingVertical : 6,
     fontFamily:'MPLUS1p_500Medium',
     fontSize:16,
-  },
+    position:"absolute",
+    paddingLeft:60,
+    zIndex:-1,
+},
   headLine: {
     paddingVertical : 6,
     fontFamily:'MPLUS1p_500Medium',
     fontSize:20,
     marginVertical:20,
+  },
+  sum: {
+    position:'relative',
+    width:'100%'
   },
   title: {
     paddingVertical : 6,
@@ -125,9 +146,9 @@ const styles = StyleSheet.create({
   popText01: {
     fontFamily:'MPLUS1p_500Medium',
     fontSize:20,
-    marginBottom:10,
     color:'#d9376e',
     position:"absolute",
-    top:'9%',
+    bottom:40,
+    alignSelf:'center'
   },
 });
