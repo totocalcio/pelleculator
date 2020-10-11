@@ -14,7 +14,7 @@ const ProfileScreen = () => {
   });
 
   const [name,setName] = useState("");
-  const [sex, setSex] = React.useState('male');
+  const [sex, setSex] = useState('male');
   const [weight,setWeight] = useState(null);
   const [birth,setBirth] = useState(new Date().toISOString().split('T')[0]);
   const [welcome,setWelcome] = useState(new Date().toISOString().split('T')[0]);

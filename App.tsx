@@ -1,16 +1,15 @@
 import * as React from 'react';
-import { AppLoading } from 'expo';
-import { KeyboardAvoidingView,SafeAreaView  } from 'react-native';
+import { AppLoading,SplashScreen  } from 'expo';
+import { KeyboardAvoidingView,SafeAreaView ,View,Image } from 'react-native';
 import { MaterialCommunityIcons, } from '@expo/vector-icons';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { createStackNavigator } from '@react-navigation/stack';
 import { useFonts, Inter_900Black } from '@expo-google-fonts/inter';
 
 import HomeScreen from './screens/HomeScreen'
 import ProfileScreen from './screens/ProfileScreen'
+import defaultStyles from './styles';
 
-const RootStack = createStackNavigator();
 const AppTab = createBottomTabNavigator();
 
 const AppTabsScreen = () => (
@@ -59,9 +58,42 @@ const AppTabsScreen = () => (
 )
 
 const App = () => {
+
+  const [isReady,setReady] = React.useState(false);
+
+  const updateAsync = async () => {
+    await sleep(3000);
+    SplashScreen.hide();
+    setReady(true);
+  }
+  
+  const sleep = (sec) => {
+    return new Promise(resolve => {
+        setTimeout(resolve, sec);
+    })
+  }
+  
+  React.useEffect(()=>{
+    SplashScreen.preventAutoHide();
+  },[]);
+
   let [fontsLoaded] = useFonts({
     Inter_900Black,
   });
+
+  if (!isReady) {
+    return (
+      <View style={[defaultStyles.container]}>
+        <Image
+          resizeMode='contain'
+          style={{width: "100%"}}
+          source={require('./assets/splash.png')} 
+          onLoad={updateAsync} 
+        />
+      </View>
+    );
+  }
+
   if (!fontsLoaded) {
     return <AppLoading />;
   } else {

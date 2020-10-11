@@ -4,7 +4,9 @@
   "scripts": {
     "start": "expo start",
     "android": "expo start --android",
+    "build-a": "expo build:android -t app-bundle",
     "ios": "expo start --ios",
+    "build-i": "expo build:ios",
     "web": "expo start --web",
     "eject": "expo eject",
     "lint": "eslint 'src/**/*.{js,jsx,ts,tsx}'; stylelint 'src/**/*.{css,jsx,tsx}'; cd functions/ && eslint 'src/**/*.{js,ts}'",
