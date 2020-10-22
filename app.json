@@ -2,7 +2,7 @@
   "expo": {
     "name": "Pelleculator",
     "slug": "pelleculator",
-    "version": "1.0.3",
+    "version": "1.1.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {
@@ -22,7 +22,7 @@
       },
       "supportsTablet": true,
       "bundleIdentifier": "com.totocalcio.pelleculator",
-      "buildNumber": "1.0.3"
+      "buildNumber": "1.1.0"
     },
     "android": {
       "package": "com.totocalcio.pelleculator",
@@ -30,7 +30,7 @@
         "backgroundColor": "#fedbd0",
         "foregroundImage": "./assets/adaptiveicon.png"
       },
-      "versionCode": 4
+      "versionCode": 5
     },
     "notification": {
       "icon": "./assets/notificationicon.png",

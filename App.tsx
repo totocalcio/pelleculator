@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { AppLoading,SplashScreen  } from 'expo';
-import { KeyboardAvoidingView,SafeAreaView ,View,Image } from 'react-native';
+import { KeyboardAvoidingView,SafeAreaView ,View,Image,Platform } from 'react-native';
 import { MaterialCommunityIcons, } from '@expo/vector-icons';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -8,6 +8,7 @@ import { useFonts, Inter_900Black } from '@expo-google-fonts/inter';
 
 import HomeScreen from './screens/HomeScreen'
 import ProfileScreen from './screens/ProfileScreen'
+import TipsScreen from './screens/TipsScreen'
 import defaultStyles from './styles';
 
 const AppTab = createBottomTabNavigator();
@@ -54,6 +55,19 @@ const AppTabsScreen = () => (
         )
       }}
     />
+    <AppTab.Screen
+      name="Tips"
+      component={TipsScreen}
+      options= {{
+        tabBarIcon: props => (
+          <MaterialCommunityIcons
+            name={ props.focused ? 'file' : 'file-outline' }
+            size={props.size}
+            color={props.color}
+          />
+        )
+      }}
+    />
   </AppTab.Navigator>
 )
 
@@ -62,7 +76,7 @@ const App = () => {
   const [isReady,setReady] = React.useState(false);
 
   const updateAsync = async () => {
-    await sleep(3000);
+    await sleep(2000);
     SplashScreen.hide();
     setReady(true);
   }
@@ -99,7 +113,7 @@ const App = () => {
   } else {
     return (
       <NavigationContainer>
-        <KeyboardAvoidingView style={{ flex: 1 }} behavior="padding">
+        <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS == 'ios' ? 'padding' : 'height'}>
           <AppTabsScreen />
           <SafeAreaView style={{backgroundColor:"#442c2e"}}/>
         </KeyboardAvoidingView>
