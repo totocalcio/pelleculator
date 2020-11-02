@@ -13,7 +13,7 @@ import Constants from 'expo-constants';
 
 import { ImageContext } from '../contexts/AppContext';
 
-export default function ImagePickerExample() {
+export default function ImageSelect() {
   const { image, setImage } = useContext(ImageContext);
 
   const PHOTO = '@photo';
@@ -21,10 +21,12 @@ export default function ImagePickerExample() {
   useEffect(() => {
     (async () => {
       if (Platform.OS !== 'web') {
+        // console.log(status);
         const {
           status,
         } = await ImagePicker.requestCameraRollPermissionsAsync();
         if (status !== 'granted') {
+          // console.log(status);
           alert(
             '申し訳ありません。機能を使うにはカメラロールの権限が必要です。',
           );
@@ -45,23 +47,17 @@ export default function ImagePickerExample() {
 
     if (!result.cancelled) {
       setImage(result.uri);
-    }
-    try {
-      const Photo = JSON.stringify(result.uri);
-      await AsyncStorage.setItem(PHOTO, Photo);
-    } catch (err) {
-      alert(err);
+      try {
+        const Photo = JSON.stringify(result.uri);
+        await AsyncStorage.setItem(PHOTO, Photo);
+      } catch (err) {
+        alert(err);
+      }
     }
   };
 
   return (
     <View style={styles.imageContent}>
-      {/* {image && (
-        <Image
-          source={{ uri: image }}
-          style={{ width: 160, height: 160, borderRadius: 160 }}
-        />
-      )} */}
       {image ? (
         <Image
           source={{ uri: image }}
@@ -81,8 +77,6 @@ export default function ImagePickerExample() {
       <TouchableOpacity style={styles.button} onPress={pickImage}>
         <Text style={styles.buttonText}>写真を選ぶ</Text>
       </TouchableOpacity>
-
-      {/* <Button title="Pick an image from camera roll" onPress={pickImage} /> */}
     </View>
   );
 }

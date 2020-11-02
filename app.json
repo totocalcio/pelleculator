@@ -2,7 +2,7 @@
   "expo": {
     "name": "Pelleculator",
     "slug": "pelleculator",
-    "version": "1.1.0",
+    "version": "1.1.1",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {
@@ -13,16 +13,14 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
-      "infoPlist":{
-        "CFBundleDevelopmentRegion":"ja_JP"
+      "infoPlist": {
+        "CFBundleDevelopmentRegion": "ja_JP"
       },
       "supportsTablet": true,
       "bundleIdentifier": "com.totocalcio.pelleculator",
-      "buildNumber": "1.1.0"
+      "buildNumber": "1.1.1"
     },
     "android": {
       "package": "com.totocalcio.pelleculator",
@@ -30,7 +28,7 @@
         "backgroundColor": "#fedbd0",
         "foregroundImage": "./assets/adaptiveicon.png"
       },
-      "versionCode": 5
+      "versionCode": 6
     },
     "notification": {
       "icon": "./assets/notificationicon.png",

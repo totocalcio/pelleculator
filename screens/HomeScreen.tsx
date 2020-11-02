@@ -14,19 +14,29 @@ const HomeScreen = () => {
   const [sum, setSum] = React.useState('0');
   const [weight, setWeight] = React.useState(2);
 
+  const calcWeight = (weight) => weight / 10;
+
   React.useEffect(() => {
     switch (ageAry.indexOf(age)) {
       case 0:
-        setSum(`${50 * weight}`);
+        setSum(`${Math.floor(50 * calcWeight(weight))}`);
         break;
       case 1:
-        setSum(` ${30 * weight} ~ ${50 * weight}`);
+        setSum(
+          ` ${Math.floor(30 * calcWeight(weight))} ~ ${Math.floor(
+            50 * calcWeight(weight),
+          )}`,
+        );
         break;
       case 2:
-        setSum(`${10 * weight} ~ ${30 * weight}`);
+        setSum(
+          `${Math.floor(10 * calcWeight(weight))} ~ ${Math.floor(
+            30 * calcWeight(weight),
+          )}`,
+        );
         break;
       case 3:
-        setSum(`${20 * weight}`);
+        setSum(`${Math.floor(20 * calcWeight(weight))}`);
         break;
     }
   });
@@ -58,7 +68,9 @@ const HomeScreen = () => {
 
         <View style={styles.sum}>
           {ageAry.indexOf(age) === 2 && (
-            <Text style={styles.popText01}>{`(1.5%は${15 * weight}g)`}</Text>
+            <Text style={styles.popText01}>{`(1.5%は${
+              15 * calcWeight(weight)
+            }g)`}</Text>
           )}
           <Title
             style={[styles.title, { textAlign: 'center' }]}
@@ -108,12 +120,14 @@ const HomeScreen = () => {
             </View>
           </RadioButton.Group>
         </View>
-        <Headline style={styles.headLine}>{`体重 : ${weight} kg`}</Headline>
+        <Headline style={styles.headLine}>{`体重 : ${calcWeight(
+          weight,
+        )} kg`}</Headline>
         <Slider
-          step={0.5}
+          step={2}
           style={{ width: '100%', height: 20 }}
-          minimumValue={1}
-          maximumValue={4}
+          minimumValue={10}
+          maximumValue={40}
           minimumTrackTintColor="#ffffff"
           maximumTrackTintColor="#442c2e"
           onValueChange={(weight) => setWeight(weight)}
