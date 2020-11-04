@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { FC, useState, useEffect } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { RadioButton, Text, Headline, Title } from 'react-native-paper';
 import { AppLoading } from 'expo';
@@ -7,16 +7,16 @@ import Slider from '@react-native-community/slider';
 
 import defaultStyles from '../styles';
 
-const HomeScreen = () => {
-  const ageAry = ['幼年期', '成長期', '維持期', '高齢期'];
+const HomeScreen: FC = () => {
+  const ageAry: string[] = ['幼年期', '成長期', '維持期', '高齢期'];
 
-  const [age, setAge] = React.useState(ageAry[2]);
-  const [sum, setSum] = React.useState('0');
-  const [weight, setWeight] = React.useState(2);
+  const [age, setAge] = useState<string>(ageAry[2]);
+  const [sum, setSum] = useState<string>('0');
+  const [weight, setWeight] = useState<number>(2);
 
-  const calcWeight = (weight) => weight / 10;
+  const calcWeight = (weight: number) => weight / 10;
 
-  React.useEffect(() => {
+  useEffect(() => {
     switch (ageAry.indexOf(age)) {
       case 0:
         setSum(`${Math.floor(50 * calcWeight(weight))}`);
@@ -50,22 +50,6 @@ const HomeScreen = () => {
   } else {
     return (
       <View style={[defaultStyles.container, { position: 'relative' }]}>
-        {/* {
-          (ageAry.indexOf(age)===1) && (
-            <Text style={styles.popText01}>４ヶ月～６ヶ月は食べ放題(太りすぎ注意)</Text>
-          )
-        } */}
-        {/* {
-          !function() {
-            console.log('test2');
-            if (ageAry.indexOf(age)===2) {
-              return(
-                <Text style={styles.popText01}>{`(1.5%は${15 * weight}g)`}</Text>
-              );
-            }
-          }
-        } */}
-
         <View style={styles.sum}>
           {ageAry.indexOf(age) === 2 && (
             <Text style={styles.popText01}>{`(1.5%は${

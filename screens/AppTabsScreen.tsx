@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { FC } from 'react';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
@@ -8,7 +8,7 @@ import TipsScreen from './TipsScreen';
 
 const AppTab = createBottomTabNavigator();
 
-const AppTabsScreen = () => (
+const AppTabsScreen: FC = () => (
   <AppTab.Navigator
     initialRouteName="Home"
     tabBarOptions={{
