@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { AppLoading } from 'expo';
 import * as SplashScreen from 'expo-splash-screen';
 import {
@@ -14,8 +14,8 @@ import { useFonts, Inter_900Black } from '@expo-google-fonts/inter';
 import AppTabsScreen from './screens/AppTabsScreen';
 import defaultStyles from './styles';
 
-const App = () => {
-  const [isReady, setReady] = React.useState(false);
+const App: FC = () => {
+  const [isReady, setReady] = useState<boolean>(false);
 
   const updateAsync = async () => {
     await sleep(2000);
@@ -23,13 +23,13 @@ const App = () => {
     setReady(true);
   };
 
-  const sleep = (sec) => {
+  const sleep = (sec: number) => {
     return new Promise((resolve) => {
       setTimeout(resolve, sec);
     });
   };
 
-  React.useEffect(() => {
+  useEffect(() => {
     SplashScreen.preventAutoHideAsync();
   }, []);
 
