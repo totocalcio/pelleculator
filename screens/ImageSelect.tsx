@@ -21,12 +21,10 @@ export default function ImageSelect() {
   useEffect(() => {
     (async () => {
       if (Platform.OS !== 'web') {
-        // console.log(status);
         const {
           status,
         } = await ImagePicker.requestCameraRollPermissionsAsync();
         if (status !== 'granted') {
-          // console.log(status);
           alert(
             '申し訳ありません。機能を使うにはカメラロールの権限が必要です。',
           );
