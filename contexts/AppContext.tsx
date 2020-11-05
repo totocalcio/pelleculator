@@ -1,10 +1,13 @@
-import { createContext } from 'react';
+import { createContext, Dispatch, SetStateAction } from 'react';
 
-export const ImageContext = createContext(
-  {} as {
-    image: string;
-    setImage: React.Dispatch<React.SetStateAction<string>>;
-  },
-);
+type typeContext = {
+  image: string;
+  setImage: Dispatch<SetStateAction<string>>;
+};
 
-console.log();
+const defaultContext: typeContext = {
+  image: '',
+  setImage: () => {},
+};
+
+export const ImageContext = createContext<typeContext>(defaultContext);
