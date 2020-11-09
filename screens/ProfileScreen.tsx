@@ -18,26 +18,36 @@ import ImageSelect from './ImageSelect';
 import defaultStyles from '../styles';
 import { ImageContext } from '../contexts/AppContext';
 
+// enum typeSex {
+//   'male',
+//   'female',
+//   'unknown',
+// }
+
 const ProfileScreen = () => {
   let [fontsLoaded] = useFonts({
     MPLUS1p_500Medium,
   });
 
-  const [image, setImage] = useState(null);
-  const [name, setName] = useState('');
-  const [sex, setSex] = useState('male');
-  const [weight, setWeight] = useState(null);
-  const [birth, setBirth] = useState(new Date().toISOString().split('T')[0]);
-  const [welcome, setWelcome] = useState(
+  const [image, setImage] = useState<string>('');
+  const [name, setName] = useState<string>('');
+  const [sex, setSex] = useState<string>('male');
+  const [weight, setWeight] = useState<string>('');
+  const [birth, setBirth] = useState<string>(
     new Date().toISOString().split('T')[0],
   );
-  const [variety, setVariety] = useState('');
-  const [color, setColor] = useState('');
-  const [select, setSelect] = useState('');
+  const [welcome, setWelcome] = useState<string>(
+    new Date().toISOString().split('T')[0],
+  );
+  const [variety, setVariety] = useState<string>('');
+  const [color, setColor] = useState<string>('');
+  const [select, setSelect] = useState<string>('');
 
-  const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
+  const [isDatePickerVisible, setDatePickerVisibility] = useState<boolean>(
+    false,
+  );
 
-  const showFc = (str) => {
+  const showFc = (str: string) => {
     setSelect(str);
     showDatePicker();
   };
@@ -50,7 +60,7 @@ const ProfileScreen = () => {
     setDatePickerVisibility(false);
   };
 
-  const handleConfirm = (date) => {
+  const handleConfirm = (date: Date) => {
     hideDatePicker();
     if (select === 'birth') {
       setBirth(date.toISOString().split('T')[0]);
@@ -84,10 +94,10 @@ const ProfileScreen = () => {
     } catch (err) {
       alert(err);
     } finally {
-      setImage(null);
+      setImage('');
       setName('');
-      setSex('男の子');
-      setWeight(null);
+      setSex('male');
+      setWeight('');
       setBirth(new Date().toISOString().split('T')[0]);
       setWelcome(new Date().toISOString().split('T')[0]);
       setVariety('');
