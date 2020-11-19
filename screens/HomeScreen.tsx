@@ -1,6 +1,6 @@
-import React, { FC, useState, useEffect } from 'react';
-import { View, StyleSheet } from 'react-native';
-import { RadioButton, Text, Headline, Title } from 'react-native-paper';
+import React, { FC, useEffect, useState } from 'react';
+import { StyleSheet, View } from 'react-native';
+import { Headline, RadioButton, Text, Title } from 'react-native-paper';
 import { AppLoading } from 'expo';
 import { useFonts, MPLUS1p_500Medium } from '@expo-google-fonts/m-plus-1p';
 import Slider from '@react-native-community/slider';

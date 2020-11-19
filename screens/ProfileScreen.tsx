@@ -1,13 +1,13 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useEffect, useState } from 'react';
 import { AppLoading } from 'expo';
 import {
-  Text,
-  View,
-  StyleSheet,
+  Alert,
   AsyncStorage,
   ScrollView,
+  Text,
+  StyleSheet,
   TextInput,
-  Image,
+  View,
 } from 'react-native';
 import { RadioButton } from 'react-native-paper';
 import { TouchableOpacity } from 'react-native-gesture-handler';
@@ -17,12 +17,6 @@ import { useFonts, MPLUS1p_500Medium } from '@expo-google-fonts/m-plus-1p';
 import ImageSelect from './ImageSelect';
 import defaultStyles from '../styles';
 import { ImageContext } from '../contexts/AppContext';
-
-// enum typeSex {
-//   'male',
-//   'female',
-//   'unknown',
-// }
 
 const ProfileScreen = () => {
   let [fontsLoaded] = useFonts({
@@ -88,7 +82,7 @@ const ProfileScreen = () => {
     }
   };
 
-  const remove = async () => {
+  const removeStrage = async () => {
     try {
       await AsyncStorage.removeItem('MyRabbit');
     } catch (err) {
@@ -104,6 +98,27 @@ const ProfileScreen = () => {
       setColor('');
       setSelect('');
     }
+  };
+
+  const remove = () => {
+    Alert.alert(
+      '本当にリセットしますか？',
+      '',
+      [
+        {
+          text: 'キャンセル',
+          style: 'cancel',
+        },
+        {
+          text: 'リセット',
+          onPress: () => {
+            removeStrage();
+          },
+          style: 'default',
+        },
+      ],
+      { cancelable: false },
+    );
   };
 
   const load = async () => {

@@ -1,6 +1,6 @@
 import React from 'react';
 import { AppLoading } from 'expo';
-import { Text, View, StyleSheet } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import { Title } from 'react-native-paper';
 import { useFonts, MPLUS1p_500Medium } from '@expo-google-fonts/m-plus-1p';
 

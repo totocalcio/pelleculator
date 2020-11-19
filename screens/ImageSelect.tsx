@@ -1,13 +1,13 @@
 import React, { useContext } from 'react';
 import {
   Alert,
-  TouchableOpacity,
-  Image,
-  View,
   AsyncStorage,
+  Image,
   Platform,
   StyleSheet,
   Text,
+  TouchableOpacity,
+  View,
 } from 'react-native';
 import { Linking } from 'expo';
 import * as ImagePicker from 'expo-image-picker';
@@ -36,8 +36,10 @@ export default function ImageSelect() {
               onPress: () => {
                 Linking.openURL('app-settings:');
               },
+              style: 'destructive',
             },
           ],
+          { cancelable: false },
         );
       });
     } else {
