@@ -1,13 +1,15 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useContext } from 'react';
 import {
+  Alert,
   TouchableOpacity,
   Image,
   View,
-  Platform,
   AsyncStorage,
+  Platform,
   StyleSheet,
   Text,
 } from 'react-native';
+import { Linking } from 'expo';
 import * as ImagePicker from 'expo-image-picker';
 import Constants from 'expo-constants';
 
@@ -15,40 +17,55 @@ import { ImageContext } from '../contexts/AppContext';
 
 export default function ImageSelect() {
   const { image, setImage } = useContext(ImageContext);
-
   const PHOTO = '@photo';
 
-  useEffect(() => {
-    (async () => {
-      if (Platform.OS !== 'web') {
-        // console.log(status);
-        const {
-          status,
-        } = await ImagePicker.requestCameraRollPermissionsAsync();
-        if (status !== 'granted') {
-          // console.log(status);
-          alert(
-            '申し訳ありません。機能を使うにはカメラロールの権限が必要です。',
-          );
-        }
-      }
-    })();
-  }, []);
-
+  const AsyncAlert = async () => {
+    if (Platform.OS === 'ios') {
+      // iOS用
+      new Promise((resolve) => {
+        Alert.alert(
+          `カメラロールの許可が無効になっています`,
+          '設定画面へ移動しますか？',
+          [
+            {
+              text: 'キャンセル',
+              style: 'cancel',
+            },
+            {
+              text: '設定する',
+              onPress: () => {
+                Linking.openURL('app-settings:');
+              },
+            },
+          ],
+        );
+      });
+    } else {
+      // Android用
+      new Promise((resolve) => {
+        Alert.alert(
+          '申し訳ありません。機能を使うにはカメラロールの権限が必要です。',
+        );
+      });
+    }
+  };
   const pickImage = async () => {
-    let result = await ImagePicker.launchImageLibraryAsync({
+    let permissionResult = await ImagePicker.requestCameraRollPermissionsAsync();
+
+    if (permissionResult.granted === false) {
+      const alertResult = await AsyncAlert();
+      return;
+    }
+
+    let pickerResult = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.All,
       allowsEditing: true,
-      aspect: [4, 3],
       quality: 1,
     });
-
-    // console.log(result);
-
-    if (!result.cancelled) {
-      setImage(result.uri);
+    if (!pickerResult.cancelled) {
+      setImage(pickerResult.uri);
       try {
-        const Photo = JSON.stringify(result.uri);
+        const Photo = JSON.stringify(pickerResult.uri);
         await AsyncStorage.setItem(PHOTO, Photo);
       } catch (err) {
         alert(err);
