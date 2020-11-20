@@ -2,11 +2,11 @@ import React, { FC, useEffect, useState } from 'react';
 import { AppLoading } from 'expo';
 import * as SplashScreen from 'expo-splash-screen';
 import {
+  Image,
   KeyboardAvoidingView,
+  Platform,
   SafeAreaView,
   View,
-  Image,
-  Platform,
 } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { useFonts, Inter_900Black } from '@expo-google-fonts/inter';
