@@ -1,5 +1,5 @@
 import React, { FC, useEffect, useState } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { AsyncStorage, StyleSheet, View } from 'react-native';
 import { Headline, RadioButton, Text, Title } from 'react-native-paper';
 import { AppLoading } from 'expo';
 import { useFonts, MPLUS1p_500Medium } from '@expo-google-fonts/m-plus-1p';
@@ -15,6 +15,32 @@ const HomeScreen: FC = () => {
   const [weight, setWeight] = useState<number>(2);
 
   const calcWeight = (weight: number) => weight / 10;
+
+  let calc = {
+    age,
+    sum,
+    weight,
+  };
+
+  const load = async () => {
+    try {
+      let jsonString = await AsyncStorage.getItem('Calc');
+
+      if (jsonString !== null) {
+        const jsonValue = JSON.parse(jsonString);
+        calc = { ...jsonValue };
+        setAge(calc.age);
+        setSum(calc.sum);
+        setWeight(calc.weight);
+      }
+    } catch (err) {
+      alert(err);
+    }
+  };
+
+  useEffect(() => {
+    load();
+  }, []);
 
   useEffect(() => {
     switch (ageAry.indexOf(age)) {
@@ -39,6 +65,17 @@ const HomeScreen: FC = () => {
         setSum(`${Math.floor(20 * calcWeight(weight))}`);
         break;
     }
+  });
+
+  useEffect(() => {
+    const storage = async () => {
+      try {
+        await AsyncStorage.setItem('Calc', JSON.stringify(calc));
+      } catch (err) {
+        alert(err);
+      }
+    };
+    storage();
   });
 
   let [fontsLoaded] = useFonts({
